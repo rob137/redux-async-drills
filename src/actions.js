@@ -20,8 +20,14 @@ export const searchCharactersError = error => ({
     error
 });
 
+// Request, Success, Error
 export const searchCharacters = name => dispatch => {
-    // Make this async action using the search function
-    // It should dispatch the three sync actions above
+    dispatch(searchCharactersRequest());
+    search(name)
+        /* .then(res => {
+            !res.ok ? Promise.reject(res.statusText) : res.json();
+        }) */
+        .then(character => dispatch(searchCharactersSuccess(character)))
+        .catch(err => dispatch(searchCharactersError(err)));
 };
 
